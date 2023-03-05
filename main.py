@@ -11,13 +11,15 @@ pygame.display.set_caption("ping-pong")
 def run():
     game = True
     clock = pygame.time.Clock()
-    player_left = Board(15, 250, 20, 500, None, 7)
-    player_right = Board(setting_win["WIDTH"] - 20 - 15, 250, 20, 500, None, 7)
-    ball = Ball(setting_win["WIDTH"] // 2, setting_win["HEIGHT"] // 2, 20, (0, 255, 0), None, 5)
+    player_left = Board(15, 250, 20, 100, None, 7)
+    player_right = Board(setting_win["WIDTH"] - 20 - 15, 250, 20, 100, None, 7)
+    ball = Ball(setting_win["WIDTH"] // 2, setting_win["HEIGHT"] // 2, 20, (0, 255, 0), None, 8)
 
 
     while game:
         window.fill((0,0,0))
+        pygame.draw.line(   window, (255, 255, 255), 
+                            (setting_win["WIDTH"] // 2, 0), (setting_win["WIDTH"] // 2, setting_win["HEIGHT"]))
         pygame.draw.rect(window, (255, 0, 0), player_left)
         pygame.draw.rect(window, (255, 0, 0), player_right)
         pygame.draw.circle(window, ball.COLOR, (ball.X, ball.Y), ball.RADIUS)

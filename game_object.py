@@ -29,17 +29,36 @@ class Ball():
         self.DIRECTION = True if self.ANGLE < 0 else False
     
     def move(self, board):
-        
+        coff = 0
         if self.Y - self.RADIUS <= 0 or self.Y + self.RADIUS >= setting_win["HEIGHT"]:
             self.VERTICAL *= -1
         elif board.collidepoint(self.X - self.RADIUS, self.Y) or board.collidepoint(self.X + self.RADIUS, self.Y):
             if board.MOVE["UP"]:
                 self.VERTICAL = - uniform(self.SPEED // 2, self.SPEED)
+                if self.ANGLE < 0:
+                    self.ANGLE = - self.SPEED
+                else:
+                    self.ANGLE = self.SPEED
+                coff = (((self.ANGLE ** 2 + self.VERTICAL ** 2) ** 0.5) / self.SPEED)
+                self.ANGLE = self.SPEED / coff
+                if self.DIRECTION:
+                    self.ANGLE *= -1
+                self.VERTICAL = self.VERTICAL / coff
+
             elif board.MOVE["DOWN"]:
                 self.VERTICAL = uniform(self.SPEED // 2, self.SPEED)
+                if self.ANGLE < 0:
+                    self.ANGLE = - self.SPEED
+                else:
+                    self.ANGLE = self.SPEED
+                coff = (((self.ANGLE ** 2 + self.VERTICAL ** 2) ** 0.5) / self.SPEED)
+                self.ANGLE = self.SPEED / coff
+                if self.DIRECTION:
+                    self.ANGLE *= -1
+                self.VERTICAL = self.VERTICAL / coff
             self.ANGLE *= -1
             self.DIRECTION = not self.DIRECTION
 
         self.X += self.ANGLE
         self.Y += self.VERTICAL
-        print((self.ANGLE ** 2 + self.VERTICAL ** 2) ** 0.5)
+        print((self.ANGLE ** 2 + self.VERTICAL ** 2) ** 0.5, self.ANGLE, self.VERTICAL)
